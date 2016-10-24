@@ -102,15 +102,8 @@ var extend = require('cog/extend');
   passed to quickconnect are also passed onto this function.
 
 **/
-module.exports = function(signalhost, opts) {
+module.exports = function(signaller, opts) {
   var hash = typeof location != 'undefined' && location.hash.slice(1);
-  var signaller = require('rtc-pluggable-signaller')(extend({
-    signaller: signalhost,
-
-    // use the primus endpoint as a fallback in case we are talking to an
-    // older switchboard instance
-    endpoints: ['/', '/primus']
-  }, opts));
 
   var getPeerData = require('./lib/getpeerdata')(signaller.peers);
   var generateIceServers = require('rtc-core/genice');
